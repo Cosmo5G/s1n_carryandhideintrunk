@@ -5,6 +5,10 @@ Config = {
     showPlayerInTrunk = false, -- Option to show player hiden in trunk
     allowCarryAsCommand = false, -- This option will allow /carry command. Target will be working too
     allowBlackout = false, -- This function allows player screen to be blackouted when trunk is closed if trunk opens player will see again.
+
+    -- Set to "ox" if you're using ox_target, "qb" if you're using qb-target
+    -- If you're using qb-target, make sure to set Config.EnableDefaultOptions to false in the qb-target/init.lua (For some reason, it doesn't work with default options WTFFFF???)
+    targetScript = "ox"
 }
 --[[
     EXPORTS

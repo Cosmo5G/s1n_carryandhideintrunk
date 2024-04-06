@@ -365,101 +365,212 @@ end
 --- ox_target interactions
 --
 
-
-exports["ox_target"]:addGlobalPlayer(
-        {
-            name = 'ox_target:carry',
-            icon = 'fa-solid fa-car-rear',
-            label = locale('target_carry_player'),
-            canInteract = function(entity, distance, coords, name, boneId)
-                return true
-            end,
-            onSelect = function(data)
-                carryPlayer(data)
-            end
-        }
-)
-
-exports["ox_target"]:addGlobalVehicle(
-        {
+if Config.targetScript == "ox" then
+    exports["ox_target"]:addGlobalPlayer(
             {
-                name = 'ox_target:trunk:hide',
+                name = 'ox_target:carry',
                 icon = 'fa-solid fa-car-rear',
-                label = locale('target_remove_from_trunk'),
-                bones = 'boot',
+                label = locale('target_carry_player'),
                 canInteract = function(entity, distance, coords, name, boneId)
-                    if inTrunk then return end
-                    -- If the player did not carry anybody, he can't remove anybody from the trunk
-                    if not carryingEntity then return end
-
-                    if GetVehicleDoorLockStatus(entity) > 1 then return end
-                    if IsVehicleDoorDamaged(entity, 5) then return end
-                    return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
+                    return true
                 end,
                 onSelect = function(data)
-                    removePlayerFromTrunk(data)
-                end
-            },
-            {
-                name = 'ox_target:trunk:hide',
-                icon = 'fa-solid fa-car-rear',
-                label = locale('target_put_person_in_trunk'),
-                bones = 'boot',
-                canInteract = function(entity, distance, coords, name, boneId)
-                    if inTrunk then return end
-                    if not carrying then return end
-
-                    if GetVehicleDoorLockStatus(entity) > 1 then return end
-                    if IsVehicleDoorDamaged(entity, 5) then return end
-                    return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
-                end,
-                onSelect = function(data)
-                    hidePlayer(data)
-                end
-            },
-            {
-                name = 'ox_target:trunk:hide',
-                icon = 'fa-solid fa-car-rear',
-                label = locale('target_hide_in_trunk'),
-                bones = 'boot',
-                canInteract = function(entity, distance, coords, name, boneId)
-                    if inTrunk then return end
-                    if carrying then return end
-                    if beingCarried then return end
-                    if putInSomeoneTrunk then return end
-
-                    if GetVehicleDoorLockStatus(entity) > 1 then return end
-                    if IsVehicleDoorDamaged(entity, 5) then return end
-                    return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
-                end,
-                onSelect = function(data)
-                    local playerPedId = cache.ped
-
-                    hide(playerPedId, data)
-                end
-            },
-            {
-                name = 'ox_target:trunk:leave',
-                icon = 'fa-solid fa-car-rear',
-                label = locale('target_leave_trunk'),
-                bones = 'boot',
-                canInteract = function(entity, distance, coords, name, boneId)
-                    if not inTrunk then return end
-                    if carrying then return end
-                    if putInSomeoneTrunk then return end
-
-                    if GetVehicleDoorLockStatus(entity) > 1 then return end
-                    if IsVehicleDoorDamaged(entity, 5) then return end
-                    return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
-                end,
-                onSelect = function(data)
-                    local playerPedId = cache.ped
-
-                    leaveTrunk(playerPedId, data)
+                    carryPlayer(data)
                 end
             }
-        }
-)
+    )
+
+    exports["ox_target"]:addGlobalVehicle(
+            {
+                {
+                    name = 'ox_target:trunk:hide',
+                    icon = 'fa-solid fa-car-rear',
+                    label = locale('target_remove_from_trunk'),
+                    bones = 'boot',
+                    canInteract = function(entity, distance, coords, name, boneId)
+                        if inTrunk then return end
+                        -- If the player did not carry anybody, he can't remove anybody from the trunk
+                        if not carryingEntity then return end
+
+                        if GetVehicleDoorLockStatus(entity) > 1 then return end
+                        if IsVehicleDoorDamaged(entity, 5) then return end
+                        return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
+                    end,
+                    onSelect = function(data)
+                        removePlayerFromTrunk(data)
+                    end
+                },
+                {
+                    name = 'ox_target:trunk:hide',
+                    icon = 'fa-solid fa-car-rear',
+                    label = locale('target_put_person_in_trunk'),
+                    bones = 'boot',
+                    canInteract = function(entity, distance, coords, name, boneId)
+                        if inTrunk then return end
+                        if not carrying then return end
+
+                        if GetVehicleDoorLockStatus(entity) > 1 then return end
+                        if IsVehicleDoorDamaged(entity, 5) then return end
+                        return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
+                    end,
+                    onSelect = function(data)
+                        hidePlayer(data)
+                    end
+                },
+                {
+                    name = 'ox_target:trunk:hide',
+                    icon = 'fa-solid fa-car-rear',
+                    label = locale('target_hide_in_trunk'),
+                    bones = 'boot',
+                    canInteract = function(entity, distance, coords, name, boneId)
+                        if inTrunk then return end
+                        if carrying then return end
+                        if beingCarried then return end
+                        if putInSomeoneTrunk then return end
+
+                        if GetVehicleDoorLockStatus(entity) > 1 then return end
+                        if IsVehicleDoorDamaged(entity, 5) then return end
+                        return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
+                    end,
+                    onSelect = function(data)
+                        local playerPedId = cache.ped
+
+                        hide(playerPedId, data)
+                    end
+                },
+                {
+                    name = 'ox_target:trunk:leave',
+                    icon = 'fa-solid fa-car-rear',
+                    label = locale('target_leave_trunk'),
+                    bones = 'boot',
+                    canInteract = function(entity, distance, coords, name, boneId)
+                        if not inTrunk then return end
+                        if carrying then return end
+                        if putInSomeoneTrunk then return end
+
+                        if GetVehicleDoorLockStatus(entity) > 1 then return end
+                        if IsVehicleDoorDamaged(entity, 5) then return end
+                        return #(coords - GetEntityBonePosition_2(entity, boneId)) < 0.9
+                    end,
+                    onSelect = function(data)
+                        local playerPedId = cache.ped
+
+                        leaveTrunk(playerPedId, data)
+                    end
+                }
+            }
+    )
+elseif Config.targetScript == "qb" then
+    exports["qb-target"]:AddGlobalPlayer(
+            {
+                options = {
+                    {
+                        icon = 'fa-solid fa-car-rear',
+                        label = locale('target_carry_player'),
+                        canInteract = function(entity, distance, coords, name, boneId)
+                            return true
+                        end,
+                        action = function(entity, distance, data)
+                            carryPlayer({ entity = entity })
+                        end
+                    }
+                }
+            }
+    )
+
+    exports["qb-target"]:AddGlobalVehicle(
+            {
+                distance = 2.5,
+                options = {
+                    {
+                        icon        = 'fa-solid fa-car-rear',
+                        label       = locale('target_remove_from_trunk'),
+                        canInteract = function(entity, distance, data)
+                            if inTrunk then return end
+                            -- If the player did not carry anybody, he can't remove anybody from the trunk
+                            if not carryingEntity then return end
+
+                            if GetVehicleDoorLockStatus(entity) > 1 then return end
+                            if IsVehicleDoorDamaged(entity, 5) then return end
+
+                            local coords = GetEntityCoords(cache.ped)
+                            local boneId = GetEntityBoneIndexByName(entity, 'boot')
+
+                            return #(coords - GetEntityBonePosition_2(entity, boneId)) < 1.3
+                        end,
+                        action      = function(entity, distance, data)
+                            removePlayerFromTrunk({ entity = entity })
+                        end
+                    },
+                    {
+                        icon        = 'fa-solid fa-car-rear',
+                        label       = locale('target_put_person_in_trunk'),
+                        canInteract = function(entity, distance, data)
+                            if inTrunk then return end
+                            if not carrying then return end
+
+                            if GetVehicleDoorLockStatus(entity) > 1 then return end
+                            if IsVehicleDoorDamaged(entity, 5) then return end
+
+                            local coords = GetEntityCoords(cache.ped)
+                            local boneId = GetEntityBoneIndexByName(entity, 'boot')
+
+                            return #(coords - GetEntityBonePosition_2(entity, boneId)) < 1.3
+                        end,
+                        action      = function(entity, distance, data)
+                            hidePlayer({ entity = entity })
+                        end
+                    },
+                    {
+                        num = 1,
+                        icon        = 'fa-solid fa-car-rear',
+                        label       = locale('target_hide_in_trunk'),
+                        canInteract = function(entity, distance, data)
+                            if inTrunk then return end
+                            if carrying then return end
+                            if beingCarried then return end
+                            if putInSomeoneTrunk then return end
+
+                            if GetVehicleDoorLockStatus(entity) > 1 then return end
+                            if IsVehicleDoorDamaged(entity, 5) then return end
+
+                            local coords = GetEntityCoords(cache.ped)
+                            local boneId = GetEntityBoneIndexByName(entity, 'boot')
+
+                            return #(coords - GetEntityBonePosition_2(entity, boneId)) < 1.3
+                        end,
+                        action      = function(entity, distance, data)
+                            local playerPedId = cache.ped
+
+                            hide(playerPedId, { entity = entity })
+                        end
+                    },
+                    {
+                        icon        = 'fa-solid fa-car-rear',
+                        label       = locale('target_leave_trunk'),
+                        canInteract = function(entity, distance, data)
+                            if not inTrunk then return end
+                            if carrying then return end
+                            if putInSomeoneTrunk then return end
+
+                            if GetVehicleDoorLockStatus(entity) > 1 then return end
+                            if IsVehicleDoorDamaged(entity, 5) then return end
+
+                            local coords = GetEntityCoords(cache.ped)
+                            local boneId = GetEntityBoneIndexByName(entity, 'boot')
+
+                            return #(coords - GetWorldPositionOfEntityBone(entity, boneId)) < 1.3
+                        end,
+                        action      = function(entity, distance, data)
+                            local playerPedId = cache.ped
+
+                            leaveTrunk(playerPedId, { entity = entity })
+                        end
+                    },
+                }
+            }
+    )
+end
 
 
 --
