@@ -200,6 +200,14 @@ end
 local function carryPlayer(data)
     if not data.entity then return print("data.entity: nil value") end
 
+    if IsPedInAnyVehicle(data.entity, false) then
+        return lib.notify({
+			title = locale("target_in_veh_notify_title"),
+			description = locale("target_in_veh_notify_msg"),
+			type = "error",
+		})
+    end
+
     carrying = true
     carryingEntity = data.entity
 

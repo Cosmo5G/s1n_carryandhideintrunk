@@ -1,4 +1,7 @@
 {
+    "target_in_veh_notify_title": "Ooops !",
+    "target_in_veh_notify_msg": "The person is in a vehicle !",
+    
     "trunk_occupied_notify_title": "Ooops !",
     "trunk_occupied_notify_msg": "The trunk is not empty !",
 
