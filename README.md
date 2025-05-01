@@ -1,5 +1,7 @@
 # 🚗 Carry And Hide In Trunk for FiveM
 
+> 📦 **Statut :** This project is now archived and no long maintained. Feel free to do whatever you like with it. 
+
 Elevate your FiveM gaming experience with the "Carry And Hide In Trunk" script! 🎮 Now you can carry players, hide in trunks, and interact with vehicles like never before.
 
 Join the S1nScripts community on Discord at [discord.gg/4gtdmjuN3Q](https://discord.gg/4gtdmjuN3Q).
