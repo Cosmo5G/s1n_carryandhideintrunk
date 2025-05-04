@@ -131,7 +131,8 @@ local function hide(playerPedId, data)
     if Config.allowBlackout then
         disableCamera(data.entity)
     end
-    SetCarBootOpen(data.entity)
+    SetVehicleDoorOpen(data.entity, 5, false, false)
+    --SetCarBootOpen(data.entity) -- THIS IS DEPRECATED
     SetEntityCollision(playerPedId, false, false)
 
     Wait(350)
@@ -168,7 +169,8 @@ local function leaveTrunk(playerPedId, data)
     disableCameraTemp = false
     TriggerServerEvent("s1n_carryandhideintrunk:removeMeFromTrunkListing", NetworkGetNetworkIdFromEntity(data.entity))
 
-    SetCarBootOpen(data.entity)
+    SetVehicleDoorOpen(data.entity, 5, false, false)
+    -- SetCarBootOpen(data.entity) -- THIS IS DEPRECATED
     SetEntityCollision(playerPedId, true, true)
 
     Wait(750)
@@ -318,7 +320,8 @@ RegisterNetEvent("s1n_carryandhideintrunk:hidePlayer", function(vehicleId)
     DetachEntity(playerPedId, true, false)
     ClearPedSecondaryTask(playerPedId)
 
-    SetCarBootOpen(vehicle)
+    SetVehicleDoorOpen(vehicle, 5, false, false)
+    -- SetCarBootOpen(vehicle) THIS IS DEPRECATED
     SetEntityCollision(playerPedId, false, false)
 
     Wait(350)
